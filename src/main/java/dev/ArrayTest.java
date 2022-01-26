@@ -21,13 +21,13 @@ public class ArrayTest {
         List<String> list = Arrays.asList(dataArray);
 
         setStrings("a","b","c");
-        Arrays.sort(dataArray, new Comparator<String>() {
+        Arrays.sort(dataArray, new Comparator<String>() {//comparable한 게 아니라면 Comparator 객체 사용
             @Override
             public int compare(String o1, String o2) {
-
+                return o1.compareTo(o2);
             }
-        }
-    }
+        });
+    };
 
     public void setStrings(String... strings){//...은 파라미터가 한두개 이상 들어간다는 뜻
         int length = strings.length;

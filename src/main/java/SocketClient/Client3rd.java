@@ -1,6 +1,7 @@
 package SocketClient;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.json.simple.JSONObject;
 
 import java.io.BufferedReader;
