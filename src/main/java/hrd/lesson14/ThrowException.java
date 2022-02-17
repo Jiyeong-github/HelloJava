@@ -12,6 +12,12 @@ public class ThrowException {
     }
     public static void main(String[] args){
         ThrowException test = new ThrowException(); //예외 처리
-        test.loadClass("a2.txt", "Test");
+        try {
+            test.loadClass("a2.txt", "Test");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
