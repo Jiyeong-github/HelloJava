@@ -4,7 +4,7 @@ import hrd.lesson13.StringConcatImpl;
 
 public class PasswordTest {
 
-    private String getPassword(){
+    private String getPassword(String password){
         return password;
     }
 
@@ -19,7 +19,7 @@ public class PasswordTest {
             throw new PasswordException(("비밀번호는 숫자를 포함해야 합니다."));
         }
 
-        this.password = password;
+//        this.password = password;
     }
 
     public static void main(String[] args){

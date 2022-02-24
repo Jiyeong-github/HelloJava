@@ -17,6 +17,7 @@ import java.util.Map;
 
 public class SocketThreadServer3rd extends Thread {
 
+    private static Class<SocketServer.SocketThreadServer3rd> SocketThreadServer3rd;
     private static final Logger logger = Logger.getLogger(SocketThreadServer3rd);
 
     private Socket socket;
@@ -25,7 +26,7 @@ public class SocketThreadServer3rd extends Thread {
         this.socket = socket;
     }
 
-    private static final InterlockDao interlockDao = InterlockDao.getInstance();
+//    private static final InterlockDao interlockDao = InterlockDao.getInstance();
 
     //JSON 데이터 넘기기 -> list 키에 담아서 발송(파싱 부분 Map 형태)
     public void run() {
@@ -45,20 +46,20 @@ public class SocketThreadServer3rd extends Thread {
 
             Gson gson = new Gson();
             JSObject jo = gson.fromJson(returnMessage, JSObject.class);
-            List<Map<Object, Object>> list = (ArrayList<MappingChange.Map<Object, Object>>) jo.get("list");
+            // List<Map<Object, Object>> list = (ArrayList<MappingChange.Map<Object, Object>>) jo.get("list");
 
-            for (int i = 0; i < list.size(); i++) {
+         /*   for (int i = 0; i < list.size(); i++) {
                 System.out.println(list.get(i).toString());
-            }
+            }*/
             //클라이언트에 문자열 전송
             pw.println("수신 완료");
             pw.flush();
 
             HashMap<String, Object> params = new HashMap<String, Object>();
-            List<Map<String, Object>> test = interlockDao.selectTest(params);
-            for (int i = 0; i < test.size(); i++) {
+            //List<Map<String, Object>> test = interlockDao.selectTest(params);
+           /* for (int i = 0; i < test.size(); i++) {
                 System.out.println(test.get(i));
-            }
+            }*/
         } catch (IOException e) {
             logger.error(e);
         } finally {

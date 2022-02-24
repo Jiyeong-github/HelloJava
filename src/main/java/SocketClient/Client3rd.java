@@ -2,7 +2,6 @@ package SocketClient;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import org.json.simple.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,7 +34,7 @@ public class Client3rd {
                 list.add(vo);
            }
             JsonObject jo = new JsonObject();
-            jo.put("list",list);
+           // jo.put("list",list);
 
             //VO 메시지 발송
             pw.println(new Gson().toJson(jo));

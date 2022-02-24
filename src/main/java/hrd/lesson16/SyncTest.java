@@ -53,7 +53,7 @@ public class SyncTest {
 
     public static Bank myBank = new Bank();
 
-    public static void main(Stringp[] args) throws InterruptedException{
+    public static void main(String[] args) throws InterruptedException{
         Park p = new Park();
         p.start();
         Thread.sleep(200);

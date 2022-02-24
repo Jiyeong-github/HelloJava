@@ -6,15 +6,17 @@ import java.io.IOException;
 
 public class FileIOExceptionTest {
     //주어진 이름의 파일의 데이터를 바이트 단위로 읽어들임
-        try( FileInputStream fis = new FileInputStream("a.txt")){
+    public static void main(String[] args){
 
+        FileInputStream fis = null;
+        try{
+                fis = new FileInputStream("a.txt");
         } catch (FileNotFoundException e) {
-        System.out.println(e);
-        return;
+            e.printStackTrace();
         }finally {
             try {
                 fis.close();
-            } catch (IOException e) {
+            }catch (IOException e) {
                 e.printStackTrace();
             }catch (NullPointerException e){
                 System.out.println(e);
@@ -22,5 +24,6 @@ public class FileIOExceptionTest {
             System.out.println("finally");
         }
     }
+}
 
 

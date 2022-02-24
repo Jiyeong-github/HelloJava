@@ -1,4 +1,4 @@
-package hrd.lesson12;
+package hrd.lesson13.lesson12;
 
 public class CarTest {
 

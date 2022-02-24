@@ -25,7 +25,7 @@ public class SystemInTest {
 
         Socket socket = new Socket();
         socket.getInputStream(); //Socket에서 데이터 읽기 - 바이트 스트림으로 한글 읽기 불가
-        BufferedReader br = new BufferedInputStream(new InputStreamReader(socket.getInputStream())); // 이러면 한글 읽기 가능
+        //BufferedReader br = new BufferedInputStream(new InputStreamReader(socket.getInputStream())); // 이러면 한글 읽기 가능
 
 
     }
