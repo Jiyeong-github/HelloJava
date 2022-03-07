@@ -1,7 +1,6 @@
 package SocketServer;
 
 import org.apache.log4j.Logger;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,7 +9,7 @@ public class App {
 
     private static final Logger logger = Logger.getLogger(App.class);
 
-    private static final int PORT_NUMBER = 4432;
+    private static final int PORT_NUMBER = 4;
 
     public static void main(String[] args) throws IOException{
 

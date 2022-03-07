@@ -1,8 +1,6 @@
 package SocketServer;
 
-
 import org.apache.log4j.Logger;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,7 +28,8 @@ public class SocketThreadServer extends Thread{
         //문자열 출력
 
         try{
-            String connIP = socket.getInetAddress().getHostAddress(); //InetAddress : IP 번호를 처리할 때 사용, HostAddress : 호스트의 IP 주소를 이용해 iadder의 호스트 ip 주소를 받아 옴
+            String connIP = socket.getInetAddress().getHostAddress();
+            //InetAddress : IP 번호를 처리할 때 사용, HostAddress : 호스트의 IP 주소를 이용해 iadder의 호스트 ip 주소를 받아 옴
             System.out.println(connIP+"에서 연결 시도.");
             /*접근한 소켓 계정의 ip를 체크 -> KTOA 연동 모듈인지 체크
             * 정상이면 먼저 정상 접근되었음을 의미*/

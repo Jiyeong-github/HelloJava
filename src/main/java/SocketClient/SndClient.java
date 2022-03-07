@@ -31,7 +31,7 @@ public class SndClient {
                 list.add(vo);
             }
 
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             //HashMap은 Map 인터페이스를 구현했으며, Map은 key와 value로 구성된 Entry 객체를 저장하는 구조를 가짐.
             //키는 중복 저장 불가능. 많은 양의 데이터를 검색하는데 유리함.
             map.put("list",list);

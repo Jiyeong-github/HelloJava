@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 //VO 데이터 직렬화해서 넘기는 방법 - ObjectInputStream과 ObjectOutputStream
 public class SocketThreadSever2nd extends Thread {
 
@@ -33,12 +34,9 @@ public class SocketThreadSever2nd extends Thread {
             for (int i = 0; i < list.size(); i++) {
                 System.out.println(list.get(i).toString());
             }
-
             oos.writeObject(map);
             oos.flush();
-        } catch (IOException e) {
-            logger.error(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             logger.error(e);
         } finally {
             try {
