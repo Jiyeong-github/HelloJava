@@ -35,16 +35,14 @@ public class DomParserTest {
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
-                if (nodeList.item(i).getNodeName().equals("host")) {
-                    System.out.println("기존 Host : "+node.getAttributes().getNamedItem("alias").getNodeValue().toString());
-                }
-
                 for(int j=0; j < Listnode.getLength(); j++) {
                     Node deno = Listnode.item(j);
-                    if(Listnode.item(j).getNodeName().equals("host")){
-                        System.out.println("새로운 Host : "+deno.getAttributes().getNamedItem("alias").getNodeValue().toString());
-                    }
-
+//                    if(Listnode.item(j).getNodeName().equals("host")){
+//                        System.out.println("새로운 Host : "+deno.getAttributes().getNamedItem("alias").getNodeValue().toString());
+//                    }
+//                    if (nodeList.item(i).getNodeName().equals(Listnode.item(j).getNodeName())) {
+//                        System.out.println("Host : "+node.getAttributes().getNamedItem("alias").getNodeValue().addAll().toString());
+//                    }
 
                 }//2nd for
             }
