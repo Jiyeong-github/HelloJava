@@ -10,7 +10,7 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class ParserTest {
+public class HashsetParsing {
 
     static Document doc = null;
     static Set set = new HashSet<>();

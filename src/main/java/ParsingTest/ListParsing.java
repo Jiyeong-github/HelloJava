@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeMapParsing {
+public class ListParsing {
     static Document doc = null;
     static List<String> partner = new ArrayList<>();
     static List<String> NewPartner = new ArrayList<>();
@@ -92,7 +92,6 @@ public class TreeMapParsing {
                 partner.add(passwd_out);
                 partner.add(usesproxy);
                 partner.add(description);
-                partner.add(" ");
             }
         }
     }
