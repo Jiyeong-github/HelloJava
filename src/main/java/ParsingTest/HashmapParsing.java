@@ -1,10 +1,12 @@
 package ParsingTest;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.naming.event.ObjectChangeListener;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -56,31 +58,42 @@ public class HashmapParsing {
         //자식 노드 목록
         NodeList ChildNode = document.getDocumentElement().getChildNodes();
 
+        List<Object> list = new ArrayList<>();
+        nodeList = nodeList.item(0).getChildNodes();
+
         for (int i = 0; i < nodeList.getLength(); i++) {
-            if (nodeList.item(i).getNodeName().equals("host")) {
-                for(int j=0; j<ChildNode.getLength(); j++){
-                    Node node = ChildNode.item(j);
-                    if(node.getFirstChild().isEqualNode(root)){
-                        Element element = (Element)node;
-                        String NodeName = element.getNodeName();
+            Node deno = nodeList.item(i);
+            System.out.println("nodeList" + i + "번째");
+            if (deno.getNodeType() == Node.ELEMENT_NODE) {
+                //node 엘리먼트가 자식 node일 경우 실행
+                if (nodeList.item(i).getNodeName().equals("host")) {
+                    for (int j = 0; j < ChildNode.getLength(); j++) {
+                        Node node = ChildNode.item(j);
+                        if (node.getFirstChild().isEqualNode(root)) {
+                            Element element = (Element) node;
+                            String NodeName = element.getNodeName();
 
-                        node.removeChild(root);
-                        node.appendChild(root);
-                        System.out.println(NodeName);
+                            node.removeChild(root);
+                            node.appendChild(root);
+                            System.out.println(NodeName);
+                        }
+                        System.out.println(node);
+                    }//2nd for
+
+                    Node node = nodeList.item(i);
+                    Element element = (Element) node;
+                    //GAC#01
+                    if (!element.getAttribute("alias").equals("")) {
+                        map.put("alias", element.getAttribute("alias"));
                     }
-                    System.out.println(node);
-                }//2nd for
+                    if (element.getNodeName().equals("alias")) {
+                        map.remove("alias", element.getAttribute("alias"));
+                        map.putIfAbsent("alias", element.getAttribute("alias"));
+                    }
+                    list.add(map);
 
-                Node node = nodeList.item(i);
-                Element element = (Element) node;
-                //GAC#01
-                if(!element.getAttribute("alias").equals("")){
-                    map.put("alias", element.getAttribute("alias"));
                 }
-                if(element.getAttribute("alias").equals("alias")){
-                    map.remove("alias",element.getAttribute("alias"));
-                    map.putIfAbsent("alias",element.getAttribute("alias"));
-                }
+
             }
         }
     }
