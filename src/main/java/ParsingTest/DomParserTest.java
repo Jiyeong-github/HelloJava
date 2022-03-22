@@ -1,8 +1,6 @@
 package ParsingTest;
 
-import com.sun.corba.se.impl.legacy.connection.USLPort;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

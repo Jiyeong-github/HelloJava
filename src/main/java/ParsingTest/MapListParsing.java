@@ -1,7 +1,6 @@
 package ParsingTest;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 public class MapListParsing {
-    static Document document = null;
     static List<Object> list = new ArrayList<>();
     static Map<String, Object> map = new HashMap<>();
 
@@ -26,18 +24,18 @@ public class MapListParsing {
             //파일 읽기
             DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = builderFactory.newDocumentBuilder();
-            Document docm = builder.parse(file);
+            Document document = builder.parse(file);
             Document doc = builder.parse(NewFile);
-            docm.getDocumentElement().normalize();
+            document.getDocumentElement().normalize();
             doc.getDocumentElement().normalize();
 
             System.out.println("Root Element : " + doc.getDocumentElement().getNodeName());
-            System.out.println("New Element : " + docm.getDocumentElement().getNodeName());
+            System.out.println("New Element : " + document.getDocumentElement().getNodeName());
             System.out.println("파일 출력");
 
             //읽어들인 파일 불러오기
             NodeList nodeList = doc.getElementsByTagName("host");
-            NodeList Listnode = docm.getElementsByTagName("host");
+            NodeList Listnode = document.getElementsByTagName("host");
 
             setNode(nodeList);
             setNode(Listnode);
@@ -50,12 +48,14 @@ public class MapListParsing {
     }
 
     private static void setNode(NodeList nodeList) {
-        if (document == null) return;
         for (int i = 0; i < nodeList.getLength(); i++) {
             if (nodeList.item(i).getNodeName().equals("host")) {
                 Node node = nodeList.item(i);
+                System.out.println(node);
+                System.out.println(node.getFirstChild());
                 System.out.println("nodeList" + i + "번째");
-
+            }
+/*
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
 
@@ -84,7 +84,7 @@ public class MapListParsing {
                                 Element elem = (Element) deno;
                                 Map<String, Object> stringObjectMap = new HashMap<>();
 
-                                stringObjectMap.put("alias", elem.getAttribute("alias"));
+                                stringObjectMap.put("url", elem.getAttribute("url"));
 
                                 mapList.add(stringObjectMap);
                             }
@@ -104,9 +104,8 @@ public class MapListParsing {
                         System.out.println(map);
                     }
                 }
-            }
+            } */
         }
     }
 }
-
 
