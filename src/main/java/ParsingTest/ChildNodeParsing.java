@@ -54,6 +54,7 @@ public class ChildNodeParsing {
             String nodeValue = nodeList.item(i).getAttributes().getNamedItem("alias").getNodeValue();
             // <alias> 태그의 하위 노드들을 가져온다. ( 여기서 노드는 태그를 의미한다. )
             NodeList childNodes = nodeList .item(i).getChildNodes();
+            System.out.println(childNodes);
             for (int j = 0; j < childNodes.getLength(); ++j) {
                 if(nodeValue.isEmpty()){
                     map.put("value",nodeValue.equals("GAC#1"));
