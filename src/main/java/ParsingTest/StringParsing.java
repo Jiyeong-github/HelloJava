@@ -35,36 +35,43 @@ public class StringParsing {
             NodeList Listnode = document.getElementsByTagName("host");
 
             for(int i=0; i<nodeList.getLength(); i++) {
+                String alias1 = nodeList.item(i).getAttributes().getNamedItem("alias").getNodeValue();
+                String url = nodeList.item(i).getAttributes().getNamedItem("url").getNodeValue();
+                String uid_out = nodeList.item(i).getAttributes().getNamedItem("uid_out").getNodeValue();
+                String passwd_out = nodeList.item(i).getAttributes().getNamedItem("passwd_out").getNodeValue();
+                String usesproxy = nodeList.item(i).getAttributes().getNamedItem("usesproxy").getNodeValue();
+                String description = nodeList.item(i).getAttributes().getNamedItem("description").getNodeValue();
+
+                list.add(alias1);
+                list.add(url);
+                list.add(uid_out);
+                list.add(passwd_out);
+                list.add(usesproxy);
+                list.add(description);
+
                 for(int j=0; j<Listnode.getLength(); j++) {
+                    String alias2 = Listnode.item(j).getAttributes().getNamedItem("alias").getNodeValue();
+                    String url2 = Listnode.item(j).getAttributes().getNamedItem("url").getNodeValue();
+                    String uid_out2 = Listnode.item(j).getAttributes().getNamedItem("uid_out").getNodeValue();
+                    String passwd_out2 = Listnode.item(j).getAttributes().getNamedItem("passwd_out").getNodeValue();
+                    String usesproxy2 = Listnode.item(j).getAttributes().getNamedItem("usesproxy").getNodeValue();
+                    String description2 = Listnode.item(j).getAttributes().getNamedItem("description").getNodeValue();
+
+                    list.add(alias2);
+                    list.add(url2);
+                    list.add(uid_out2);
+                    list.add(passwd_out2);
+                    list.add(usesproxy2);
+                    list.add(description2);
+
                     if (nodeList.item(i).getNodeName().equals("host") && Listnode.item(j).getNodeName().equals("host")) {
-                        String alias1 = nodeList.item(i).getAttributes().getNamedItem("alias").getNodeValue();
-                        String url = nodeList.item(i).getAttributes().getNamedItem("url").getNodeValue();
-                        String uid_out = nodeList.item(i).getAttributes().getNamedItem("uid_out").getNodeValue();
-                        String passwd_out = nodeList.item(i).getAttributes().getNamedItem("passwd_out").getNodeValue();
-                        String usesproxy = nodeList.item(i).getAttributes().getNamedItem("usesproxy").getNodeValue();
-                        String description = nodeList.item(i).getAttributes().getNamedItem("description").getNodeValue();
-
-                        String alias2 = Listnode.item(j).getAttributes().getNamedItem("alias").getNodeValue();
-                        String url2 = Listnode.item(j).getAttributes().getNamedItem("url").getNodeValue();
-                        String uid_out2 = Listnode.item(j).getAttributes().getNamedItem("uid_out").getNodeValue();
-                        String passwd_out2 = Listnode.item(j).getAttributes().getNamedItem("passwd_out").getNodeValue();
-                        String usesproxy2 = Listnode.item(j).getAttributes().getNamedItem("usesproxy").getNodeValue();
-                        String description2 = Listnode.item(j).getAttributes().getNamedItem("description").getNodeValue();
-
-
                         if(alias2.contains(alias1)){
-                            for(String string: alias1){}
-                            for(int n =0; n<list.size(); n++){
-
-                            }
                             list.remove(alias1.equals(alias2));
+                            list.remove(url.equals(url2));
+                            list.remove(description.equals(description2));
                             list.add(alias2);
                             list.add(url2);
-                            list.add(uid_out2);
-                            list.add(passwd_out2);
-                            list.add(usesproxy2);
                             list.add(description2);
-
                         }
 //                        if(alias1.equals(alias2)){
 //                            list.remove(alias1);
