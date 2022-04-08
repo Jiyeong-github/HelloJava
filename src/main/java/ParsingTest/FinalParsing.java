@@ -15,7 +15,7 @@ import java.net.*;
 import java.sql.*;
 import java.util.*;
 
-public class APIParsing {
+public class FinalParsing {
 
     static URL url = null;
     static HttpURLConnection connection = null;
@@ -23,8 +23,17 @@ public class APIParsing {
     static Connection con = null;
     //프로토콜이 http인 경우 HttpURLConnection으로 객체 캐스팅 가능
 
-    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
+    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, SQLException {
+        String xmlString = URLCall();
+        List<Map<String, Object>> dataList = parsing(xmlString);
 
+        getDbConnection();
+        dbInsert(dataList);
+        freeConnection();
+
+    }
+
+    public static String URLCall() throws IOException{
         try{
             url = new URL("http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=uXaKeTiEK0mlqvsqLLlHxCx95yE3V0DKIpj9jAAyBPPN17VRhX9ipGXmiPodpawd5j5N4X%2BzJ%2BraOmxxUExmGw%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20200310&endCreateDt=20200315");
         } catch (MalformedURLException e) {
@@ -63,22 +72,23 @@ public class APIParsing {
             }
             result.append(line);
         }
-        System.out.println("msg body:"+ result.toString());
+        connection.disconnect();
+        return result.toString();
+    }
 
+    public static List<Map<String, Object>> parsing(String xmlString) throws ParserConfigurationException, SAXException, IOException{
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>(); //리스트 생성
 
         //XML 파싱
-        String data = result.toString();
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        InputSource inputS = new InputSource( new StringReader( data ) );
+        InputSource inputS = new InputSource( new StringReader( xmlString ) );
 
         Document document = builder.parse(inputS);
 
         NodeList nodeList = document.getElementsByTagName("item");
 
         for(int i=0; i<nodeList.getLength(); i++){
-
             Map<String, Object> dataMap = new HashMap<String, Object>();
             Node node = nodeList.item(i);
             NodeList nodeList2 = node.getChildNodes();
@@ -88,19 +98,18 @@ public class APIParsing {
                 String key = node2.getNodeName();
                 String value = getTagValue(key,node2);
                 dataMap.put(key,value);
-                System.out.println(key + " : " + value);
             }
             list.add(dataMap);
         }
-        System.out.println(list);
-        System.out.println(list.size());
+        return list;
+    }
 
+    public static void getDbConnection(){
         //DB 연결
-
         String server = "jdbc:mariadb://127.0.0.1:3306";
         String database = "test";
         String user_name = "root";
-        String password = "ecross";
+        String password = "비밀이지롱";
 
         //드라이버 로딩
         try {
@@ -122,27 +131,45 @@ public class APIParsing {
         try {
             if(con != null)
                 con.close();
-        } catch (SQLException e) {}
-
-        //SQL Insert
-        String sql = "insert into TB_COVID(ACCDEFRATE,ACCEXAMCNT,CREATEDT,DEATHCNT,DECIDECNT,SEQ,STATEDT,UPDATEDT) values(?,?,?,?,?,?,?,?,?)";
-
-        //DB에 xml 테이블로 넣어주기
-        try{
-            for(int i=0; i<list.size(); i++){
-                prst = con.prepareStatement(sql);
-                Node node = nodeList.item(i);
-                NodeList nodeList2 = node.getChildNodes();
-                for(int j=0; j<nodeList2.getLength(); j++){
-                    prst.setObject(j, list.get(j));
-                    prst.executeUpdate();
-                }
-                con.commit();
-            }
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
+        }
+    }
+
+    public static void dbInsert(List<Map<String, Object>> dataList) throws SQLException{
+        //SQL Insert
+        String sql = "insert into TB_COVID(ACCDEFRATE,ACCEXAMCNT,CREATEDT,DEATHCNT,DECIDECNT,SEQ,STATEDT,STATETIME,UPDATEDT) values(?,?,?,?,?,?,?,?,?)";
+
+        for(Map<String, Object> dataMap : dataList){
+            String a = (String) dataMap.get("ACCDEFRATE");
+            String b = (String) dataMap.get("ACCEXAMCNT");
+            String c = (String) dataMap.get("CREATEDT");
+            String d = (String) dataMap.get("DEATHCNT");
+            String e = (String) dataMap.get("DECIDECNT");
+            String f = (String) dataMap.get("SEQ");
+            String g = (String) dataMap.get("STATEDT");
+            String h = (String) dataMap.get("STATETIME");
+            String i = (String) dataMap.get("UPDATEDT");
+
+            prst = con.prepareStatement(sql);
+            prst.setString(1,a);
+            prst.setString(2,b);
+            prst.setString(3,c);
+            prst.setString(4,d);
+            prst.setString(5,e);
+            prst.setString(6,f);
+            prst.setString(7,g);
+            prst.setString(8,h);
+            prst.setString(9,i);
+            prst.execute(sql);
+        }
+    }
+
+
+    //connection.close() 하는 메소드
+    public static void freeConnection() throws SQLException{
+        prst.close();
+        con.close();
     }
 
     // tag값의 정보를 가져오는 메소드
